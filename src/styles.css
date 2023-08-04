@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+body
+{
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    background-color: #18387a;
+}
+.container
+{
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: center;
+    padding: 20px 50px;
+    border-radius: 5px;
+}
+.todo-form
+{
+    margin: 0 auto;
+    background-color: #fff;
+    text-align: left;
+    padding-left: 30px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+.container h1
+{
+font-size: 40px;
+margin: 0;
+}
+.inline-icon
+{
+vertical-align: bottom;
+font-size: 18px !important;
+}
+.todo-list li
+{
+margin-top: 5px;
+border: 1px solid #bbb;
+padding: 5px 10px;
+}
+.todo-list li div
+{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.todo-list button
+{
+margin-left: 5px;
+}
+.msg
+{
+color: #bbb;
+margin-bottom: 20px;
+}
+#completed-tasks
+{
+color: #4caf50;
+}

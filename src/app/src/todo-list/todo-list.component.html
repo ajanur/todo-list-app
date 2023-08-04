@@ -1,0 +1,126 @@
+<div class="container">
+    <h1 class="container h1">Todo List App</h1>
+    <hr>
+    <div>
+        <form class="todo-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="input-field col m3">
+                    <label for="title">Enter Task</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && todoFormControl['name'].errors }" id="name" formControlName="name" placeholder="Enter a task Name" required>
+                    <span class="text-danger"
+                            *ngIf="(todoFormControl['name'].touched || submitted) && todoFormControl['name'].errors?.['required']">
+                            Required
+                    </span>
+                    <span class="text-danger"
+                            *ngIf="(todoFormControl['name'].touched || submitted) && todoFormControl['name'].errors?.['minlength']">
+                            Minimum length required
+                    </span>
+                    <!-- More validation-->
+                </div>
+                <div class="input-field col m3">
+                    <label for="priority">Select Priority</label>
+                    <select id="priority" class="form-control" formControlName="priority" [ngClass]="{ 'is-invalid': submitted && todoFormControl['priority'].errors }">
+                        <option *ngFor="let option of priorities" [ngValue]="option">{{option}}</option>
+                    </select>
+                    <span class="text-danger"
+                            *ngIf="(todoFormControl['priority'].touched || submitted) && todoFormControl['priority'].errors?.['required']">
+                            Required
+                    </span>
+                    <span class="text-danger"
+                            *ngIf="(todoFormControl['priority'].touched || submitted) && todoFormControl['priority'].errors?.['max']">
+                            Range between 1 to 5
+                    </span>
+                </div>
+                <div class="input-field col m3">
+                    <label for="status">Select Status</label>
+                    <select id="status" class="form-control"  formControlName="status" [ngClass]="{ 'is-invalid': submitted && todoFormControl['status'].errors }">
+                        <option *ngFor="let status of statusList" [ngValue]="status">{{status}}</option>
+                    </select>
+                    <span class="text-danger"
+                            *ngIf="(todoFormControl['status'].touched || submitted) && todoFormControl['status'].errors?.['required']">
+                            Required
+                    </span>
+                </div>
+                <div class="input-field col m3" *ngIf="!isUpdate">
+                    <br>
+                    <button type="submit" class="btn btn-success btn-sm" name="add" id="add">+Add</button>
+                </div>
+                <div class="input-field col s3" *ngIf="isUpdate">
+                    <br>
+                    <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Yes</button>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()" name="cancel" id="cancel">No</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- <div *ngIf="isUpdate">
+        <form  class="todo-form" [formGroup]="todoFormUpdate" (ngSubmit)="onSave()">
+            <div class="row">
+                <div class="input-field col m3">
+                    <label class="col s3" for="title">Enter Task</label>
+                    <input type="text" [readonly]="true" class="form-control" id="updateName" formControlName="updateName">
+                </div>
+                <div class="input-field col m3">
+                    <label class="col s3" for="priority">Select Priority</label>
+                    <select id="updatePriority" class="form-control" formControlName="updatePriority">
+                        <option *ngFor="let option of priorities" [ngValue]="option">{{option}}</option>
+                    </select>
+                </div>
+                <div class="input-field col m3">
+                    <label class="col s3" for="status">Select Status</label>
+                    <select id="updateStatus" class="form-control" formControlName="updateStatus">
+                        <option *ngFor="let status of statusList" [ngValue]="status">{{status}}</option>
+                    </select>
+                </div>
+                <div class="input-field col s3">
+                    <br>
+                    <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Yes</button>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="onCancel()" name="cancel" id="cancel">No</button>
+                </div>
+            </div>
+        </form>
+    </div> -->
+
+    <div class="text-danger" *ngIf="this.error != null">
+        {{this.error}}
+    </div>
+    <div class="msg" *ngIf="this.successMsg != null">
+        {{this.successMsg}}
+    </div>
+
+    <ul class="todo-list div" *ngFor="let todo of sortedTodo">
+            <li class="todo-list li div" *ngIf="todo.status != 'Completed'">
+                <div class="col s3">
+                    <div>Task Name : {{todo.name}}</div>
+                    <div>Priority : {{todo.priority}}</div>
+                    <div>Status : {{todo.status}}</div>
+                    <button (click)="onUpdate(this.todo.id)" class="btn btn-primary btn-sm">edit</button> 
+                </div>
+            </li>
+    </ul>
+  
+  <div *ngIf="!todos?.length" class="msg">
+  Your Todo List is Empty!
+  </div>
+  
+  <hr>
+  <br>
+  
+  <h1 id="completed-tasks">Tasks completed</h1>
+  <div class="msg" *ngIf="this.deleteMsg != null">
+    {{this.deleteMsg}}
+ </div>
+  <hr>
+    <ul class="todo-list" *ngFor="let todo of todos">
+        <li *ngIf="todo.status=='Completed'">
+            <div class="col s3">
+                <div>Task Name : {{todo.name}}</div>
+                    <div>Priority : {{todo.priority}}</div>
+                    <div> Status : {{todo.status}}</div>
+                    <button (click)="onDelete(this.todo.id)" class="btn btn-danger btn-sm">delete</button>
+            </div>
+        </li>
+    </ul>
+</div>
+  
