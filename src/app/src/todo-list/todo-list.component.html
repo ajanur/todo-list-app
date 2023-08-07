@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="input-field col m3">
                     <label for="title">Enter Task</label>
-                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && todoFormControl['name'].errors }" id="name" formControlName="name" placeholder="Enter a task Name" required>
+                    <input type="text" [readonly]="isUpdate" class="form-control" [ngClass]="{ 'is-invalid': submitted && todoFormControl['name'].errors }" id="name" formControlName="name" placeholder="Enter a task Name" required>
                     <span class="text-danger"
                             *ngIf="(todoFormControl['name'].touched || submitted) && todoFormControl['name'].errors?.['required']">
                             Required
